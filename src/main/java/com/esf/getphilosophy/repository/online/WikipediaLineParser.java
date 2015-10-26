@@ -1,15 +1,10 @@
 package com.esf.getphilosophy.repository.online;
 
-import org.springframework.beans.factory.annotation.Autowired;
-
-import com.esf.getphilosophy.config.WikipediaSearchConfig;
 import com.esf.getphilosophy.helper.RegExHelper;
 
 public class WikipediaLineParser {
 
-	@Autowired
-	private WikipediaSearchConfig searchConfig;
-	
+
 	private String LINK_REGEX = "href=\"(\\/wiki\\/\\S+)\"";
 	
 	private String BLACKLIST_REGEX = ".*(disambiguation).*|.*:.*";
