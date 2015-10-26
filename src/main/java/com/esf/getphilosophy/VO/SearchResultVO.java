@@ -7,11 +7,14 @@ public class SearchResultVO {
 	List<PageVO> pageList;
 	
 	private SearchResultCode resultCode;
+	
+	private long timeElapsed;
 
-	public SearchResultVO(List<PageVO> pageList, SearchResultCode resultCode) {
+	public SearchResultVO(List<PageVO> pageList, SearchResultCode resultCode, long timeElapsed) {
 		super();
 		this.pageList = pageList;
 		this.resultCode = resultCode;
+		this.timeElapsed = timeElapsed;
 	}
 
 	public List<PageVO> getPageList() {
@@ -26,4 +29,7 @@ public class SearchResultVO {
 		return resultCode.getDisplayMessage();
 	}
 
+	public long getTimeElapsed() {
+		return timeElapsed;
+	}
 }

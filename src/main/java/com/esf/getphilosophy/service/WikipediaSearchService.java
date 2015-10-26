@@ -1,5 +1,7 @@
 package com.esf.getphilosophy.service;
 
+import java.time.Duration;
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,13 +29,15 @@ public class WikipediaSearchService {
 	
 	public SearchResultVO processURL(String url) {
 
+		Instant start = Instant.now(); 
+		
 		int interactionsCount = 0; 
 		PageVO actualPage = pageRepository.retrivePage(url);
 		
 		List<PageVO> pageList = new ArrayList<PageVO>();
 		
 		if(actualPage == null){
-			return new SearchResultVO(pageList, SearchResultCode.STUCK);
+			return new SearchResultVO(pageList, SearchResultCode.STUCK,getDuration(start).toMillis());
 		}
 		
 		pageList.add(actualPage);
@@ -45,24 +49,30 @@ public class WikipediaSearchService {
 			actualPage = pageRepository.retrivePage(actualPage.getFirstLink());
 			
 			if(actualPage == null){
-				return new SearchResultVO(pageList, SearchResultCode.STUCK);
+				return new SearchResultVO(pageList, SearchResultCode.STUCK,getDuration(start).toMillis());
 			}
 
 			if(pageList.contains(actualPage)){
 				pageList.add(actualPage);
-				return new SearchResultVO(pageList,SearchResultCode.LOOP);
+				return new SearchResultVO(pageList,SearchResultCode.LOOP,getDuration(start).toMillis());
 			}			
 			
 			pageList.add(actualPage);
 			
 			if(actualPage.getUrl().equals(searchConfig.getTargetPageURL())){
-				return new SearchResultVO(pageList,SearchResultCode.SUCCESS);
+				return new SearchResultVO(pageList,SearchResultCode.SUCCESS,getDuration(start).toMillis());
 			}
 			interactionsCount++;
 				
 		} 
 
-		return new SearchResultVO(pageList, SearchResultCode.STEP_OUT);
+		return new SearchResultVO(pageList, SearchResultCode.STEP_OUT, getDuration(start).toMillis());
+	}
+
+	private Duration getDuration(Instant start) {
+		Instant end = Instant.now();
+		Duration duration = Duration.between(start, end);
+		return duration;
 	}
 
 	
