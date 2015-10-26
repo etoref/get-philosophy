@@ -43,11 +43,12 @@ public class WikipediaSearchService {
 				return new SearchResultVO(pageList, SearchResultCode.STUCK);
 			}
 
-			pageList.add(actualPage);
-			
 			if(pageList.contains(actualPage)){
+				pageList.add(actualPage);
 				return new SearchResultVO(pageList,SearchResultCode.LOOP);
 			}			
+			
+			pageList.add(actualPage);
 			
 			if(actualPage.getUrl().equals(searchConfig.getTargetPageURL())){
 				return new SearchResultVO(pageList,SearchResultCode.SUCCESS);
