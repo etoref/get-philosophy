@@ -1,0 +1,33 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Getting Philosophy</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+    <H1>Getting Philosophy</H1>
+    <form action="#" th:action="@{/search}" th:object="${searchForm}" method="POST">
+		<p><input type="text" th:field="*{url}" size="80"></input></p>		
+		<p><input type="submit" value="Search"></input></p>
+	</form>	
+	<div  th:if="${searchResult != null}">
+
+	    <h2><span th:text="${searchResult.displayMessage}"/></h2>
+	  
+	    <table>
+			<tr>
+		        <th>Step</th>
+		        <th>URL</th>
+		        <th>Last Update</th>
+		    </tr>
+		    <tr th:each="page : ${searchResult.pageList}">
+		        <td th:text="${#ids.seq('')}"></td>
+		        <td><a th:href="${page.url}"><span th:text="${page.url}"/></a></td>
+		        <td th:text="${page.lastUpdate}"></td>
+		    </tr>
+	    </table>
+
+	</div>
+	
+</body>
+</html>
