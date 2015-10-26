@@ -3,6 +3,8 @@ package com.esf.getphilosophy.service;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,6 +17,8 @@ import com.esf.getphilosophy.repository.PageRepository;
 @Service
 public class WikipediaSearchService {
 
+	private static final Logger log = LoggerFactory.getLogger(WikipediaSearchService.class);
+	
 	@Autowired
 	private PageRepository pageRepository;
 	
@@ -24,7 +28,7 @@ public class WikipediaSearchService {
 	public SearchResultVO processURL(String url) {
 
 		int interactionsCount = 0; 
-		PageVO actualPage = pageRepository.retriveOnline(url);
+		PageVO actualPage = pageRepository.retrivePage(url);
 		
 		List<PageVO> pageList = new ArrayList<PageVO>();
 		
@@ -35,9 +39,10 @@ public class WikipediaSearchService {
 		pageList.add(actualPage);
 		while (searchConfig.getMaxHops() > interactionsCount){
 
-			System.out.println("Count: "+interactionsCount+" Pagina: "+actualPage);
+			log.info("Count: "+interactionsCount);
+			log.info("Pagina: "+actualPage);
 			
-			actualPage = pageRepository.retriveOnline(actualPage.getFirstLink());
+			actualPage = pageRepository.retrivePage(actualPage.getFirstLink());
 			
 			if(actualPage == null){
 				return new SearchResultVO(pageList, SearchResultCode.STUCK);

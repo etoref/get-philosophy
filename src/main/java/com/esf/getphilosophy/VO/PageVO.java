@@ -1,7 +1,5 @@
 package com.esf.getphilosophy.VO;
 
-import java.time.Instant;
-
 import org.springframework.util.StringUtils;
 
 public class PageVO {
@@ -10,16 +8,16 @@ public class PageVO {
 	
 	private String firstLink;
 
-	private Instant lastUpdate;
+	private SourceType sourceType;
 	
-	public PageVO(String url, String firstLink, Instant lastUpdate) {
+	public PageVO(String url, String firstLink, SourceType sourceType) {
 		super();
 		this.url = url;
 		if(StringUtils.isEmpty(firstLink)){
 			throw new IllegalArgumentException("firstLink, must be informed.");
 		}
 		this.firstLink = firstLink;
-		this.lastUpdate = lastUpdate;
+		this.sourceType = sourceType;
 	}
 
 	public String getUrl() {
@@ -30,8 +28,8 @@ public class PageVO {
 		return firstLink;
 	}
 
-	public Instant getLastUpdate() {
-		return lastUpdate;
+	public SourceType getSourceType() {
+		return sourceType;
 	}
 
 	@Override
@@ -62,8 +60,11 @@ public class PageVO {
 	
 	@Override
 	public String toString() {
-		return "PageVO [url=" + url + ", firstLink=" + firstLink + ", lastUpdate=" + lastUpdate + "]";
+		return "PageVO [url=" + url + ", firstLink=" + firstLink + ", sourceType=" + sourceType + "]";
 	}
 
-	
+	public enum SourceType{
+		WEB,
+		DataBase
+	}
 }

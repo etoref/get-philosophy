@@ -18,12 +18,12 @@
 			<tr>
 		        <th>Step</th>
 		        <th>URL</th>
-		        <th>Last Update</th>
+		        <th>Source</th>
 		    </tr>
 		    <tr th:each="page : ${searchResult.pageList}">
 		        <td th:text="${#ids.seq('')}"></td>
 		        <td><a th:href="${page.url}"><span th:text="${page.url}"/></a></td>
-		        <td th:text="${page.lastUpdate}"></td>
+		        <td th:text="${page.sourceType}"></td>
 		    </tr>
 	    </table>
 

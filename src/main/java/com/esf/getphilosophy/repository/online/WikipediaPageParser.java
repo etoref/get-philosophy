@@ -2,11 +2,11 @@ package com.esf.getphilosophy.repository.online;
 
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.time.Instant;
 
 import org.springframework.util.StringUtils;
 
 import com.esf.getphilosophy.VO.PageVO;
+import com.esf.getphilosophy.VO.PageVO.SourceType;
 import com.esf.getphilosophy.helper.HTTPConnectionHelper;
 
 public class WikipediaPageParser {
@@ -23,7 +23,7 @@ public class WikipediaPageParser {
 		String linkToNextPage = getLinkToNextPage(); 
 		
 		if(StringUtils.hasText(linkToNextPage)){
-			return new PageVO(url, linkToNextPage, Instant.now());
+			return new PageVO(url, linkToNextPage, SourceType.WEB);
 		}
 
 		return null;
