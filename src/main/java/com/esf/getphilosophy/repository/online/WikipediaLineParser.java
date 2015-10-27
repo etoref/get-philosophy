@@ -7,7 +7,7 @@ public class WikipediaLineParser {
 
 	private String LINK_REGEX = "href=\"(\\/wiki\\/\\S+)\"";
 	
-	private String BLACKLIST_REGEX = ".*(disambiguation).*|.*:.*";
+	private String BLACKLIST_REGEX = ".*(disambiguation).*|.*:.*|.*\\(.*\\).*";
 	
 	private String BASE_URL = "https://en.wikipedia.org";
 	
